@@ -1,0 +1,848 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Latree Makers — One Page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<style>
+  /* ====== FONTS ====== */
+  /* Elegist regular */
+@font-face{
+  font-family: "Elegist";
+  src: url("/assets/fonts/Elegist.woff2") format("woff2"); /* ← pakai slash di depan */
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Elegist “bold” (pakai file yang sama jika hanya ada 1 file) */
+@font-face{
+  font-family: "Elegist";
+  src: url("/assets/fonts/Elegist.woff2") format("woff2");
+  font-weight: 700;          /* supaya saat kamu set 700 tidak fallback */
+  font-style: normal;
+  font-display: swap;
+}
+
+
+  :root{
+    --cream:#FCF7EB;
+    --sand:#D4CC9D;
+    --olive:#70683D;
+    --amber:#966621;
+
+    --text:#2a2a2a;
+    --muted:#6a6a6a;
+    --white:#ffffff;
+
+    --shadow:0 12px 30px rgba(0,0,0,.08);
+  }
+
+  /* ====== Base ====== */
+  *{box-sizing:border-box}
+  html,body{
+    margin:0;padding:0;
+    font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    color:var(--text);
+    background:var(--cream);
+    scroll-behavior:smooth;
+  }
+  img{max-width:100%;display:block;border-radius:12px}
+  a{text-decoration:none;color:inherit}
+  .wrap{max-width:1100px;margin-inline:auto;padding:0 20px}
+
+  /* ====== Header / Navbar ====== */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:var(--white);
+    border-bottom:1px solid rgba(0,0,0,.06);
+  }
+  .topbar{display:flex;flex-direction:column;gap:10px;padding:14px 0}
+
+  /* baris brand */
+  .brand-row{
+    display:flex;justify-content:center;align-items:center;
+    position:relative;width:100%;
+    min-height:40px;
+  }
+ /* logo kiri */
+.logo-left{
+ position: absolute; 
+ left: -20px; /* <--- GANTI: Rata kiri mutlak */
+ top: 30%;
+ display: flex; align-items: center; gap: 8px;
+}
+
+/* gambar logo */
+.logo-left img {
+  height: 48px;                  /* kecilin dikit tapi tetap proporsional */
+  width: auto;
+  border-radius: 6px;
+  transition: none !important;   /* hilangin animasi */
+}
+
+/* teks di sebelah logo */
+.logo-left span {
+  font-family: Elegist, "Times New Roman", serif;
+  color: var(--olive);
+  font-size: 17px;
+  line-height: 1;
+  transition: none !important;   /* biar gak ikut animasi */
+}
+
+/* hilangin animasi saat hover */
+.logo-left:hover,
+.logo-left img:hover,
+.logo-left span:hover {
+  transform: none !important;
+  filter: none !important;
+  box-shadow: none !important;
+}
+
+  .brand{
+    font-family:Elegist, "Times New Roman", serif;
+    font-weight:400; font-size:22px; text-align:center;
+    letter-spacing:.5px; color:var(--olive);
+  }
+
+  /* toggle */
+  .menu-toggle{
+    position:absolute; right:0; top:50%; transform:translateY(-50%);
+    align-items:center; justify-content:center;
+    width:40px; height:40px; color:var(--olive);
+    border:1px solid rgba(0,0,0,.12); background:#fff; border-radius:10px;
+    cursor:pointer; line-height:1; display:none;
+  }
+  .menu-toggle .icon{display:block}
+  .menu-toggle .icon-close{display:none}
+  .menu-toggle[aria-expanded="true"] .icon-hamburger{display:none}
+  .menu-toggle[aria-expanded="true"] .icon-close{display:block}
+
+  /* nav */
+  nav{display:flex;gap:28px;justify-content:center}
+  nav a{
+    padding:8px 0;position:relative;color:var(--text);opacity:.92;
+    font-weight:500;
+  }
+  nav a:hover{opacity:1;color:var(--olive)}
+  nav a.active::after, nav a:hover::after{
+    content:"";position:absolute;left:0;right:0;bottom:-6px;height:3px;
+    background:var(--olive);border-radius:3px;
+  }
+
+  /* offset scroll */
+  section{scroll-margin-top:90px}
+
+  /* ====== Sections ====== */
+  section{padding:72px 0}
+  h1,h2,.brand{font-family:Elegist, "Times New Roman", serif;color:var(--olive)}
+  h1{margin:0 0 10px;font-size:clamp(28px,4vw,42px)}
+  h2{margin:0 0 18px;font-size:clamp(22px,3.2vw,32px)}
+  p{line-height:1.7}
+
+  /* layout home */
+  .split{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center}
+  .text-card{background:var(--sand);border:1px solid rgba(0,0,0,.06);padding:26px;border-radius:12px;box-shadow:var(--shadow)}
+  .muted{color:var(--muted)}
+
+  /* grid 3 */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:18px}
+  .grid3 .item{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+  .grid3 .item img{border-radius:0}
+
+  /* titles */
+  .section-title,
+  .section-heading,
+  h2, h3{
+    font-family:"Elegist","Times New Roman",serif !important;
+    font-weight:400; color:var(--olive); letter-spacing:.3px;font-size:clamp(24px,3.2vw,36px);text-align:center;margin-bottom:14px
+  }
+
+
+  /* beige sections */
+  .beige-section{background:var(--cream);border-top:1px solid rgba(0,0,0,.06);border-bottom:1px solid rgba(0,0,0,.06)}
+  .panel{background:var(--sand)}
+
+  /* Contact grid */
+  .contact{
+    display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:stretch;
+  }
+  /* kartu WA agar rapi dan tidak meledak di mobile */
+  .wa-card{
+    background:var(--sand);
+    border:1px solid rgba(0,0,0,.06);
+    border-radius:16px;padding:20px;
+    display:flex;flex-direction:column;gap:16px;align-items:center;justify-content:center;
+    text-align:center; box-shadow:var(--shadow);
+  }
+  .wa-card .big-wa{
+    width:min(80px,60%); /* auto-resize */
+    height:auto; border-radius:16px;
+    box-shadow:inset 0 0 0 0 rgba(0,0,0,0.1);
+  }
+
+  .card{background:var(--sand);border:1px solid rgba(0,0,0,.06);border-radius:12px;padding:24px}
+
+  /* footer */
+  footer{padding:30px 0;text-align:center;background:var(--white);border-top:1px solid rgba(0,0,0,.06);color:var(--muted)}
+
+  /* ====== Responsive ====== */
+  @media (min-width:769px){ .menu-toggle{display:none;} }
+
+  @media (max-width:768px){
+    .brand {
+    display: none !important;
+  }
+  /* === Device benar-benar touchscreen (bukan resize desktop) === */
+@media (hover: none) and (pointer: coarse) {
+  /* Hilangkan hover animation di device sentuh */
+  main img:hover,
+  button:hover,
+  .logo-left img:hover {
+    transform: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+  }
+}
+
+/* === Device dengan mouse === */
+@media (hover: hover) and (pointer: fine) {
+  /* efek hover hanya aktif di desktop */
+  main img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+  button:hover {
+    transform: translateY(-6px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    filter: brightness(1.07);
+  }
+}
+   /* Logo kiri: selalu kiri & benar-benar center vertikal */
+  .logo-left{
+    position: absolute !important;
+    left: 12px !important;     /* geser “lebih kiri” tapi aman dari tepi */
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    margin: 0 !important;
+  }
+
+  /* Kunci tinggi logo supaya tidak melebihi tinggi header */
+  .logo-left img{
+    height: 40px !important;   /* kalau masih besar, turunin ke 36px */
+    width: auto !important;
+    border-radius: 8px;
+    transition: none !important;
+    transform: none !important;
+  }
+
+  .brand-row {
+    justify-content: space-between;
+  }
+    .menu-toggle{display:inline-flex}
+    nav{display:none;flex-direction:column;gap:12px;align-items:flex-start}
+    nav.open{display:flex}
+
+    .topbar{gap:8px;padding:10px 0}
+    nav a{padding:10px 2px}
+    .wrap{padding:0 16px}
+
+    /* split jadi 1 kolom */
+    .split{grid-template-columns:1fr !important;align-items:start !important;justify-items:stretch !important;row-gap:16px}
+    .split > *{width:100% !important;min-width:0 !important}
+    #home .text-card{order:1} #home img{order:2}
+
+    /* contact stack 1 kolom + spacing */
+    .contact{grid-template-columns:1fr;gap:16px}
+    .wa-card{padding:18px}
+    .wa-card .big-wa{width:56%}
+    .card{padding:18px}
+    section{padding:48px 0 !important}
+  }
+
+  /* type rhythm */
+  .panel, .card{padding:28px}
+  .panel > .content, .card > .content{max-width:66ch}
+  .panel h2, .card h2, .panel h3, .card h3{margin:0 0 14px;line-height:1.25;letter-spacing:.2px}
+  .panel p, .card p, .panel li, .card li{line-height:1.75;color:#3b3b3b;font-size:15.5px}
+  .panel > * + *, .card > * + *{margin-top:12px}
+  .panel ul, .card ul{padding-left:1.25rem;margin:6px 0 0;list-style-position:outside}
+  .panel ul li + li, .card ul li + li {margin-top:6px}
+/* Review Section – 2 gambar, center, responsif */
+.review-wrapper{
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.review-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+  justify-items: center;
+}
+
+.review-item{
+  width: 100%;
+  max-width: 480px;
+  background: #fff;
+  padding: 14px;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.10);
+}
+
+.review-item img{
+  width: 100%;
+  height: auto;            /* biar proporsional */
+  display: block;
+  border-radius: 14px;
+  object-fit: contain;     /* tidak zoom berlebihan */
+}
+
+/* Mobile – stack ke 1 kolom */
+@media(max-width: 768px){
+  .review-grid{
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .review-item{
+    max-width: 95%;
+    margin: 0 auto;
+  }
+}
+
+
+  /* Produk: samain tinggi gambar */
+  #product .grid3 .item img{width:100%;height:260px;object-fit:cover;border-radius:10px;display:block}
+
+  /* Hover halus: gambar & tombol */
+  main img{transition:transform 0.4s ease, box-shadow 0.4s ease}
+  main img:hover{transform:scale(1.05);box-shadow:0 10px 25px rgba(0,0,0,.2)}
+
+  button{
+    transition:transform 0.5s ease-out, box-shadow 0.5s ease-out, filter 0.3s ease;
+  }
+  button:hover{
+    transform:translateY(-6px) scale(1.05);
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+    filter:brightness(1.07);
+  }
+  button:active{
+    transform:translateY(-2px) scale(0.98);
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+    filter:brightness(0.96);
+  }
+  /* Navbar logo kiri */
+.logo-left img{
+  height: clamp(40px, 6vw, 72px); /* gedein: min 40px, naik responsif sampai 72px */
+  width: auto;                    /* jaga rasio */
+  border-radius: 8px;
+}
+
+/* 1) Batasi efek zoom hanya untuk gambar di <main>, bukan logo header */
+main img{
+  transition: transform .6s ease, box-shadow .6s ease;
+}
+main img:hover{
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0,0,0,.2);
+}
+/* Matikan semua aturan lama: img {…} dan img:hover {…} yang global */
+
+/* 2) Header: kunci tinggi dan benar-benar pusatkan vertikal */
+.brand-row{ position: relative; height: 72px; }       /* tinggi konsisten */
+
+
+/* Tombol menu tetap kanan & ter-center vertikal */
+.menu-toggle{ position:absolute; right:10px; top:50%; transform:translateY(-50%); }
+
+/* Mobile: sembunyikan judul teks supaya logo tetap kiri rapih */
+@media (max-width:768px){
+  .brand{ display:none !important; }
+  .brand-row{ height: 64px; }
+}
+/* ===== Grid 5 untuk Product ===== */
+.grid5{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:16px;
+  margin-top:18px;
+}
+.grid5 .item{
+  background:#fff;
+  border:1px solid rgba(0,0,0,.06);
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.grid5 .item img{border-radius:0; width:100%; height:180px; object-fit:cover; display:block}
+
+/* Responsif */
+@media (max-width:1200px){ .grid5{ grid-template-columns:repeat(4,1fr) } }
+@media (max-width:960px){  .grid5{ grid-template-columns:repeat(3,1fr) } }
+@media (max-width:720px){  .grid5{ grid-template-columns:repeat(2,1fr) } }
+@media (max-width:480px){  .grid5{ grid-template-columns:1fr } }
+
+/* Judul & teks kartu product */
+.grid5 .item h3{
+  margin:10px 12px 6px;
+  font-family:"Elegist","Times New Roman",serif;
+  font-weight:400; color:var(--olive);
+  font-size: 22px;
+}
+.grid5 .item p{
+  margin:0 12px 14px;
+  font-size:15px; line-height:1.6; color:#3b3b3b;
+}
+
+.location-btn {
+  display: inline-block;
+  padding: 12px 18px;
+  background: var(--olive);
+  color: white !important;
+  border-radius: 10px;
+  font-weight: 600;
+  text-align: center;
+  transition: 0.3s ease;
+}
+
+.location-btn:hover {
+  background: #5d5733;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* === Price Table === */
+.price-table-wrapper {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.price-table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 600px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.2);
+  font-size: 16px;
+}
+
+.price-table th,
+.price-table td {
+  border: 1px solid rgba(0,0,0,.2);
+  padding: 14px 18px;
+  text-align: center;
+}
+
+.price-table th {
+  background: var(--sand);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--olive);
+}
+
+/* === Package Cards === */
+.package-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+  justify-content: center;   /* <-- bikin baris terakhir CENTER */
+  align-items: stretch;
+  margin-top: 20px;
+}
+
+.pkg-card {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.1);
+  padding: 18px 20px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  width: 300px;               /* <-- ukuran konsisten */
+  max-width: 100%;
+}
+
+
+.pkg-card h3 {
+  margin-top: 0;
+  color: var(--olive);
+  font-family: Elegist;
+  text-align: center;
+}
+
+.pkg-card ul {
+  margin: 10px 0 0;
+  padding-left: 18px;
+  color: var(--text);
+}
+
+.pkg-card li {
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+.ig-btn{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:10px 16px;
+  background:linear-gradient(45deg,#F58529,#FEDA77,#DD2A7B,#8134AF,#515BD4);
+  color:#fff !important;
+  border-radius:10px;
+  font-weight:600; font-size:15px;
+  box-shadow:0 6px 16px rgba(0,0,0,.15);
+  transition:.25s ease;
+}
+.ig-btn:hover{ transform:translateY(-2px); box-shadow:0 10px 22px rgba(0,0,0,.2); }
+.ig-btn svg{ width:18px; height:18px; }
+
+</style>
+</head>
+
+<body>
+<header>
+  <div class="wrap topbar">
+    <div class="brand-row">
+      <!-- LOGO KIRI -->
+      <a class="logo-left" href="#home" aria-label="Latree Makers Home">
+        <img src="assets/latre.jpg" alt="Latree logo">
+        <!-- <span>Latree</span> -->
+      </a>
+
+      <div class="brand">Latree Makers</div>
+
+      <button class="menu-toggle" aria-label="Buka/Tutup Menu" aria-expanded="false">
+        <i class="bi bi-list icon icon-hamburger" aria-hidden="true"></i>
+        <i class="bi bi-x icon icon-close" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <nav id="mainnav">
+      <a href="#home" class="active">Home</a>
+      <a href="#product">Product</a>
+      <a href="#class"> Class</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="#reviews">Reviews</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- Home -->
+  <section id="home">
+    <div class="wrap split">
+      <div><img src="assets/gambar14.jpg" alt="Home"></div>
+      <div class="text-card">
+        <h2>Selamat Datang di Latree!</h2>
+        <p class="muted">Kami adalah brand lokal dari Cabang Jawa Timur yang jadi pelopor dalam menghadirkan kelas formulasi produk body care, skin care, face care, hair care, hingga komestik berbahan alami. Semua produk kami aman untuk semua usia- mulai dari bayi, remaja, sampai dewasa. Dan yang paling penting harganya tetap ramah di kantong, tanpa mengorbankan kualitas.</p>
+        <p class="muted">Kami percaya setiap orang berhak tahu dam paham tentang apa yang mereka pakai di kulit. Karena itu, Latree juga menghadirkan kelas-kelas seru buat kamu yang ingin belajar lebih dalam soal produk kecantikan dan perawatan tubuh. Cocok untuk pemula, maupun kamu yang sudah punya brand sendiri dan ingin upgrade ilmu. Bisa privat atau bareng-bareng, tinggal pilih yang paling nyaman!</p>
+      </div>
+    </div>
+  </section>
+<!-- Product -->
+<section id="product" class="beige-section">
+  <div class="wrap">
+    <div class="section-title">Product</div>
+
+    <div class="grid5">
+      <!-- 1 -->
+      <div class="item" style="background:var(--sand);">
+        <img src="assets/gambar13.jpg" alt="Face Care" loading="lazy">
+        <h3>Face Care</h3>
+        <p class="muted">
+          Facial Foam, Hydrating Toner, Moisturizer, Face Oil, Gel Serum,  
+          Powder Mask, Clay Mask, Jelly Mask, Exfoliating Mask, Sleeping Mask
+        </p>
+      </div>
+
+      <!-- 2 -->
+      <div class="item" style="background:var(--sand);">
+        <img src="assets/gambar12.jpg" alt="Hair Care" loading="lazy">
+        <h3>Hair Care</h3>
+        <p class="muted">
+          Shampoo, Conditioner, Hair Mist, Hair Serum, Hair Mask, Head-to-Toe Wash
+        </p>
+      </div>
+
+      <!-- 3 -->
+      <div class="item" style="background:var(--sand);">
+        <img src="assets/gambar15.jpg" alt="Lip Care & Cosmetic" loading="lazy">
+        <h3>Lip Care & Cosmetic</h3>
+        <p class="muted">
+          Pandan Lip Balm, Lip Scrub, Lip Mask, Tinted Lip Balm, Lip Oil,  
+          Hydrating Lip Tint, Lipstick
+        </p>
+      </div>
+
+      <!-- 4 (baru) -->
+      <div class="item" style="background:var(--sand);">
+        <img src="assets/gambar11.jpg" alt="Advanced Face Treatments" loading="lazy">
+        <h3>Advanced Face Treatments</h3>
+        <p class="muted">
+          Facial Foam, Hydrating Toner, Moisturizer, Face Oil, Gel Serum,  
+          Powder Mask, Clay Mask, Jelly Mask, Exfoliating Mask, Sleeping Mask
+        </p>
+      </div>
+
+      <!-- 5 (baru) -->
+      <div class="item" style="background:var(--sand);">
+        <img src="assets/gambar16.jpg" alt="Body Care" loading="lazy">
+        <h3>Body Care</h3>
+        <p class="muted">
+          Body Wash, Body Lotion, Body Oil, Body Scrub, Body Butter,  
+          Deodorant, Shower Cream, Rash Cream, Healing Salve
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Class -->
+<section id="class" class="beige-section">
+  <div class="wrap">
+
+    <div class="section-title">Class</div>
+
+    <!-- Deskripsi besar -->
+    <div class="text-card" style="text-align:center; margin-bottom:24px;">
+      <p class="muted" style="font-size:16px; line-height:1.9; margin:0;">
+        Ingin bisa bikin produk kecantikan dan perawatan tubuh sendiri? Yuk, ikuti kelas eksklusif di Latree!
+        Dipandu oleh instruktur berpengalaman, kamu akan belajar langsung cara membuat produk dari bahan alami dan aman,
+        sesuai standar kualitas Latree. Bisa untuk pemakaian pribadi atau bekal memulai bisnis!
+      </p>
+    </div>
+
+    <!-- Galeri -->
+    <div class="grid3">
+      <div class="item"><img src="assets/gambar6.jpg" alt="Kelas Formulasi Dasar" loading="lazy"></div>
+      <div class="item"><img src="assets/gambar8.jpg" alt="Kelas Praktek Bahan Alami" loading="lazy"></div>
+      <div class="item"><img src="assets/gambar9.jpg" alt="Kelas Packaging & QC" loading="lazy"></div>
+    </div>
+
+    <!-- PRICE LIST -->
+    <h2 style="text-align:center; margin-top:40px; color:var(--olive); font-family:Elegist;">Price List</h2>
+
+    <div class="price-table-wrapper">
+      <table class="price-table">
+        <tr>
+          <th>Paket</th>
+          <th>Harga</th>
+        </tr>
+        <tr>
+          <td>Paket A</td>
+          <td>Rp 1.350.000</td>
+        </tr>
+        <tr>
+          <td>Paket B</td>
+          <td>Rp 1.600.000</td>
+        </tr>
+        <tr>
+          <td>Paket C</td>
+          <td>Rp 1.750.000</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- PACKAGE CARDS -->
+    <h2 style="text-align:center; margin-top:40px; color:var(--olive); font-family:Elegist;">
+      Class Packages
+    </h2>
+
+    <div class="package-grid">
+
+      <!-- FACE -->
+      <div class="pkg-card">
+        <h3>🌿 Face Care Package</h3>
+        <ul>
+          <li><strong>Paket A:</strong> Facial Foam, Hydrating Toner, Face Moisturizer</li>
+          <li><strong>Paket B:</strong> Facial Foam, Hydrating Toner, Face Moisturizer, Facial Oil</li>
+          <li><strong>Paket C:</strong> Facial Foam, Hydrating Toner, Face Moisturizer, Gel Serum</li>
+        </ul>
+      </div>
+
+      <!-- BODY -->
+      <div class="pkg-card">
+        <h3>🧴 Body Care Package</h3>
+        <ul>
+          <li><strong>Paket A:</strong> Body Wash, Body Lotion, Body Oil</li>
+          <li><strong>Paket B:</strong> Body Wash, Body Lotion, Body Oil, Body Scrub</li>
+          <li><strong>Paket C:</strong> Body Wash, Body Lotion, Body Oil, Body Scrub, Body Butter</li>
+        </ul>
+      </div>
+
+      <!-- HAIR -->
+      <div class="pkg-card">
+        <h3>💇 Hair Care Package</h3>
+        <ul>
+          <li><strong>Paket A:</strong> Shampoo, Hair Mist, Hair Serum</li>
+          <li><strong>Paket B:</strong> Shampoo, Hair Mist, Hair Serum, Conditioner</li>
+          <li><strong>Paket C:</strong> Shampoo, Hair Mist, Hair Serum, Conditioner, Hair Mask</li>
+        </ul>
+      </div>
+
+      <!-- LIP -->
+      <div class="pkg-card">
+        <h3>💄 Lip Care Package</h3>
+        <ul>
+          <li><strong>Paket A:</strong> Pandan Lip Balm, Lip Scrub, Lip Mask</li>
+          <li><strong>Paket B:</strong> Pandan Lip Balm, Lip Scrub, Lip Mask, Tinted Lip Balm</li>
+          <li><strong>Paket C:</strong> Pandan Lip Balm, Lip Scrub, Lip Mask, Tinted Lip Balm, Lip Oil</li>
+        </ul>
+      </div>
+
+      <!-- MASK -->
+      <div class="pkg-card">
+        <h3>🧪 Mask Package</h3>
+        <ul>
+          <li><strong>Paket A:</strong> Powder Mask, Clay Mask, Jelly Mask</li>
+          <li><strong>Paket B:</strong> Powder Mask, Clay Mask, Jelly Mask, Exfoliating Mask</li>
+          <li><strong>Paket C:</strong> Powder Mask, Clay Mask, Jelly Mask, Exfoliating Mask, Sleeping Mask</li>
+        </ul>
+      </div>
+
+    </div> <!-- END PACKAGE GRID -->
+
+  </div>
+</section>
+
+
+
+  <!-- About -->
+  <section id="about" class="beige-section">
+    <div class="wrap split">
+      <div><img src="assets/gambar16.jpg" alt="About"></div>
+      <div class="panel has-rule">
+        <h2>About</h2>
+        <div class="content">
+          <p>Latree hadir sejak tahun 2023 di Malang, Jawa Timur, dengan visi untuk menjadi solusi bagi kamu yang kesulitan menemukan produk skincare atau body care yang benar-benar cocok — terutama karena kandungan bahan kimia yang sering menimbulkan iritasi, alergi, atau kemerahan pada kulit. Kami juga dapat membantu kamu yang ingin memiliki brand kecantikan dan membuat produk sesuai yang diinginkan. Kami percaya bahwa kecantikan dan perawatan diri bisa datang dari bahan-bahan alami yang lebih lembut, aman, dan tetap efektif. Karena itu, Latree mengembangkan berbagai produk berbahan dasar natural yang aman digunakan oleh semua usia, termasuk bayi sekalipun!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="beige-section">
+    <div class="wrap">
+      
+      <div class="contact">
+        
+        <!-- Kartu WhatsApp -->
+        <div class="wa-card">
+<h2 class="section-heading">Contact</h2>
+          <p class="muted" style="font-size:16px;margin:0">Hubungi kami langsung melalui WhatsApp!</p>
+        
+          <a href="https://wa.me/6281367151026" target="_blank" style="text-decoration:none;">
+           <button
+    style="display:flex;align-items:center;justify-content:center;gap:10px;
+           padding:14px 30px;background-color:var(--olive);
+           color:#fff;border:none;border-radius:12px;font-weight:600;font-size:16px;
+           cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.15)">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+         alt="WhatsApp" style="width:22px;height:22px;">
+    <span>Contact Me!</span>
+</button>
+          </a>
+          <p class="muted" style="margin-top:12px;">Phone: +62 813-6715-1026 (Admin)</p>
+        </div>
+
+        <!-- Info kanan -->
+       <div class="card">
+  <h3>Location & Social Media</h3>
+  <p class="muted">
+    Perum Jl. Taman Indah Soekarno Hatta No.Kav. 44,<br>
+    Mojolangu, Kec. Lowokwaru, Kota Malang, Jawa Timur 65142
+  </p>
+
+  <div style="text-align:center; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+    <a href="https://maps.app.goo.gl/3CYhg7spcVTrW3yS7?g_st=ac" target="_blank" class="location-btn" rel="noopener">
+      📍 Lihat Lokasi di Google Maps
+    </a>
+
+    <a href="https://www.instagram.com/latreemakers/" target="_blank" class="ig-btn" aria-label="Buka Instagram Latree Makers" rel="noopener">
+      <!-- Ikon Instagram (SVG) -->
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 2a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zM18.5 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+      </svg>
+      @latreemakers
+    </a>
+  </div>
+
+  
+</div>
+
+      </div>
+    </div>
+  </section>
+<!-- Reviews -->
+<section id="reviews" class="beige-section">
+  <div class="wrap">
+    <div class="section-title">Review Kami</div>
+
+    <div class="review-wrapper">
+      <div class="review-grid">
+
+        <div class="review-item">
+          <img src="assets/review1.jpg" alt="Review pelanggan 1">
+        </div>
+
+        <div class="review-item">
+          <img src="assets/review2.jpg" alt="Review pelanggan 2">
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+</main>
+
+<footer>
+  <div class="wrap">© 2025 Latree Makers — Placeholder</div>
+</footer>
+
+<script>
+  // Toggle menu
+  const toggleBtn = document.querySelector('.menu-toggle');
+  const nav = document.getElementById('mainnav');
+  if (toggleBtn && nav){
+    const toggle = () => {
+      const isOpen = nav.classList.toggle('open');
+      toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    };
+    toggleBtn.addEventListener('click', toggle);
+    toggleBtn.addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); }});
+  }
+
+  // Active link on scroll (map #class ke #product)
+  const navLinks = document.querySelectorAll('nav a');
+  const sections = document.querySelectorAll('section[id]');
+  const sectionMap = { "class":"class","product":"product","about":"about","contact":"contact","reviews":"reviews","home":"home" };
+
+  function updateActiveLink(){
+    let current = '';
+    sections.forEach(section => {
+      const top = section.offsetTop - 120;
+      const h = section.clientHeight;
+      if (pageYOffset >= top && pageYOffset < top + h){ current = section.id; }
+    });
+    const mapped = sectionMap[current] || current;
+    navLinks.forEach(link => {
+      link.classList.toggle('active', (link.getAttribute('href')||'') === `#${mapped}`);
+    });
+  }
+  window.addEventListener('scroll', updateActiveLink);
+  window.addEventListener('load', updateActiveLink);
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      navLinks.forEach(x => x.classList.remove('active'));
+      e.target.classList.add('active');
+      if (nav.classList.contains('open')) nav.classList.remove('open');
+    });
+  });
+</script>
+</body>
+</html>
