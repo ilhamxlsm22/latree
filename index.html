@@ -497,6 +497,21 @@ main img:hover{
 .ig-btn:hover{ transform:translateY(-2px); box-shadow:0 10px 22px rgba(0,0,0,.2); }
 .ig-btn svg{ width:18px; height:18px; }
 
+/* Justify khusus paragraf di Home & About */
+#home .text-card p,
+#about .panel .content p {
+  text-align: justify;
+  text-justify: inter-word;    /* rapatkan spasi antar kata */
+}
+
+/* Opsional: di layar kecil tetap left-align agar lebih enak dibaca */
+@media (max-width: 520px){
+  #home .text-card p,
+  #about .panel .content p {
+    text-align: left;
+  }
+}
+
 </style>
 </head>
 
